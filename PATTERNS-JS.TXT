@@ -1,0 +1,11 @@
+const memoize = (m, f) => x => m.get(x) ?? m.set(x, f(x));
+const map = (i) => {
+  const m = new Map(i);
+  return {
+    get: (x) => m.get(x),
+    set: (x, y) => (m.set(x, y), y)
+  }
+};
+const f = memoize(map(...), x => ...f(x - 1));
+
+const assert = (e, r) => console.assert(e === r, `expected: ${e}, result: ${r}`);
