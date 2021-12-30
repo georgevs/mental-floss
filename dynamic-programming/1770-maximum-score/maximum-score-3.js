@@ -17,11 +17,11 @@ const tail = (xs) => xs.slice(1);
 const heads = (xs) => xs.slice(0, -1);
 
 
-const { assert } = require('./__utils/assert');
+const { asserteq } = require('../../utils/asserteq');
 
-assert(14, maximumScore([1, 2, 3], [3, 2, 1]));
-assert(102, maximumScore([-5, -3, -3, -2, 7, 1], [-10, -5, 3, 4, 6]));
-assert(
+asserteq(14, maximumScore([1, 2, 3], [3, 2, 1]));
+asserteq(102, maximumScore([-5, -3, -3, -2, 7, 1], [-10, -5, 3, 4, 6]));
+asserteq(
   6861161,
   maximumScore(
     [555, 526, 732, 182, 43, -537, -434, -233, -947, 968, -250, -10, 470, -867, -809, -987, 120, 607, -700, 25, -349, -657, 349, -75, -936, -473, 615, 691, -261, -517, -867, 527, 782, 939, -465, 12, 988, -78, -990, 504, -358, 491, 805, 756, -218, 513, -928, 579, 678, 10],

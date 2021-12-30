@@ -18,20 +18,20 @@ const array = (n1, n2) => {
   return { get: (i, j) => m[i * n2 + j], set: (i, j, y) => (m[i * n2 + j] = y, y) };
 };
 
-const { assert } = require('../../utils/assert');
+const { asserteq } = require('../../utils/asserteq');
 
-assert(3, longestCommonSubsequence('abcde', 'ace'));
-assert(3, longestCommonSubsequence('abc', 'abc'));
-assert(0, longestCommonSubsequence('abc', 'def'));
+asserteq(3, longestCommonSubsequence('abcde', 'ace'));
+asserteq(3, longestCommonSubsequence('abc', 'abc'));
+asserteq(0, longestCommonSubsequence('abc', 'def'));
 
 
-assert(210,
+asserteq(210,
   longestCommonSubsequence(
     'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
     'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
   )
 );
 
-assert(2, longestCommonSubsequence('ezupkr', 'ubmrapg'));
+asserteq(2, longestCommonSubsequence('ezupkr', 'ubmrapg'));
 
-assert(6, longestCommonSubsequence('yzebsbuxmtcfmtodclszgh', 'ejevmhcvshclydqrulwbyha'));
+asserteq(6, longestCommonSubsequence('yzebsbuxmtcfmtodclszgh', 'ejevmhcvshclydqrulwbyha'));

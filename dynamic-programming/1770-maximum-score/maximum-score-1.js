@@ -83,7 +83,7 @@ const heads = (xs) => xs.slice(0, -1);
 
 
 
-const { assert } = require('./__utils/assert');
+const { asserteq } = require('../../utils/asserteq');
 
 const join = (d = '') => (xs) => xs.join(d);
 const combs = (s) => comb(Array.from(s)).map(join());
@@ -92,13 +92,13 @@ const combs = (s) => comb(Array.from(s)).map(join());
 // console.log(combs('ab'));
 // console.log(combs('abc'));
 
-assert([ 'abc', 'acb', 'cab', 'cba' ], combs('abc'));
-assert(['abcd', 'abdc', 'adbc', 'adcb', 'dabc', 'dacb', 'dcab', 'dcba'], combs('abcd'));
+asserteq([ 'abc', 'acb', 'cab', 'cba' ], combs('abc'));
+asserteq(['abcd', 'abdc', 'adbc', 'adcb', 'dabc', 'dacb', 'dcab', 'dcba'], combs('abcd'));
 
-assert([1], split([1]));
-assert([1, 2], split([1, 2]));
-assert([1, 3, [2]], split([1, 2, 3]));
-assert([1, 4, [2, 3]], split([1, 2, 3, 4]));
+asserteq([1], split([1]));
+asserteq([1, 2], split([1, 2]));
+asserteq([1, 3, [2]], split([1, 2, 3]));
+asserteq([1, 4, [2, 3]], split([1, 2, 3, 4]));
 
 // assert(14, maximumScore([1,2,3], [3,2,1]));
 // assert(102, maximumScore([-5,-3,-3,-2,7,1], [-10,-5,3,4,6]));

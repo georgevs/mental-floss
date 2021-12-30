@@ -15,7 +15,7 @@ const minCostClimbingStairs = (cost) => {
   return Math.min(dp(0), dp(1));
 };
 
-const assert = (e, r) => console.assert(e === r, `expected: ${e}, result: ${r}`);
+const { asserteq } = require('../../utils/asserteq');
 
-assert(15, minCostClimbingStairs([10,15,20]));
-assert(6, minCostClimbingStairs([1,100,1,1,1,100,1,1,100,1]));
+asserteq(15, minCostClimbingStairs([10,15,20]));
+asserteq(6, minCostClimbingStairs([1,100,1,1,1,100,1,1,100,1]));

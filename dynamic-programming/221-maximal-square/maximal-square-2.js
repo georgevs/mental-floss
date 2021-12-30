@@ -28,11 +28,11 @@ const map = (m, k) => {
   }
 };
 
-const { assert } = require('../../utils/assert');
+const { asserteq } = require('../../utils/asserteq');
 
-assert(90000, maximalSquare(require('./m-300x300.json')));
-assert(36, maximalSquare(require('./m-200x200.json')));
-assert(100, maximalSquare(require('./m-100x100.json')));
-assert(4, maximalSquare([['1', '0', '1', '0', '0'], ['1', '0', '1', '1', '1'], ['1', '1', '1', '1', '1'], ['1', '0', '0', '1', '0']]));
-assert(1, maximalSquare([['0', '1'], ['1', '0']]));
-assert(0, maximalSquare([['0']]));
+asserteq(90000, maximalSquare(require('./m-300x300.json')));
+asserteq(36, maximalSquare(require('./m-200x200.json')));
+asserteq(100, maximalSquare(require('./m-100x100.json')));
+asserteq(4, maximalSquare([['1', '0', '1', '0', '0'], ['1', '0', '1', '1', '1'], ['1', '1', '1', '1', '1'], ['1', '0', '0', '1', '0']]));
+asserteq(1, maximalSquare([['0', '1'], ['1', '0']]));
+asserteq(0, maximalSquare([['0']]));

@@ -29,33 +29,33 @@ const tail = (xs) => xs.slice(1);
 const heads = (xs) => xs.slice(0, -1);
 
 
-const { assert } = require('./__utils/assert');
+const { asserteq } = require('../../utils/asserteq');
 
-assert(14, maximumScore([1,2,3], [3,2,1]));
-assert(102, maximumScore([-5,-3,-3,-2,7,1], [-10,-5,3,4,6]));
+asserteq(14, maximumScore([1,2,3], [3,2,1]));
+asserteq(102, maximumScore([-5,-3,-3,-2,7,1], [-10,-5,3,4,6]));
 
-assert([10,11,13,14], scores([1,2,3],[3,2,1]));
+asserteq([10,11,13,14], scores([1,2,3],[3,2,1]));
 
-assert([[3,4,3],[3,6,2],[9,2,2],[9,4,1]], muls([1,2,3],[3,2,1]));
+asserteq([[3,4,3],[3,6,2],[9,2,2],[9,4,1]], muls([1,2,3],[3,2,1]));
 
-assert([3,4,3], mul([1,2,3], [3,2,1]));
-assert([3,4], mul([1,2,3], [3,2]));
+asserteq([3,4,3], mul([1,2,3], [3,2,1]));
+asserteq([3,4], mul([1,2,3], [3,2]));
 
 const combs = (s, n) => comb(Array.from(s), n).map(xs => xs.join(''));
 
-assert(['abc', 'cab'], combs('abc', 1));
-assert(['abc', 'acb', 'cab', 'cba'], combs('abc', 2));
-assert(['abc', 'acb', 'cab', 'cba'], combs('abc', 3));
+asserteq(['abc', 'cab'], combs('abc', 1));
+asserteq(['abc', 'acb', 'cab', 'cba'], combs('abc', 2));
+asserteq(['abc', 'acb', 'cab', 'cba'], combs('abc', 3));
 
-assert(['abcd', 'dabc'], combs('abcd', 1));
-assert(['abcd', 'adbc', 'dabc', 'dcab'], combs('abcd', 2));
-assert([
+asserteq(['abcd', 'dabc'], combs('abcd', 1));
+asserteq(['abcd', 'adbc', 'dabc', 'dcab'], combs('abcd', 2));
+asserteq([
   'abcd', 'abdc',
   'adbc', 'adcb',
   'dabc', 'dacb',
   'dcab', 'dcba'
 ], combs('abcd', 3));
-assert([
+asserteq([
   'abcd', 'abdc',
   'adbc', 'adcb',
   'dabc', 'dacb',

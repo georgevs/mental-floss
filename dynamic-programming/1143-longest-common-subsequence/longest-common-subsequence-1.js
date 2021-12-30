@@ -57,30 +57,30 @@ const comb = (ls, ch, rs) => {
 };
 
 
-const { assert } = require('../../utils/assert');
+const { asserteq } = require('../../utils/asserteq');
 
-assert([
+asserteq([
   [3, ['abc']],
   [2, ['ab', 'ac', 'bc']],
   [1, ['a', 'b', 'c']]
 ], sortedPartitions(['a', 'ab', 'abc', 'ac', 'b', 'bc', 'c']));
 
 
-assert([], subseqs(''));
-assert(['a'], subseqs('a'));
-assert(['a', 'ab', 'b'], subseqs('ab').sort());
-assert(['a', 'ab', 'abc', 'ac', 'b', 'bc', 'c'], subseqs('abc').sort());
+asserteq([], subseqs(''));
+asserteq(['a'], subseqs('a'));
+asserteq(['a', 'ab', 'b'], subseqs('ab').sort());
+asserteq(['a', 'ab', 'abc', 'ac', 'b', 'bc', 'c'], subseqs('abc').sort());
 
-assert([], comb([], '', []));
-assert(['b'], comb([], 'b', []));
-assert(['ab'], comb(['a'], 'b', []));
-assert(['abc'], comb(['a'], 'b', ['c']));
-assert(['acd', 'ace', 'bcd', 'bce'], comb(['a', 'b'], 'c', ['d', 'e']));
+asserteq([], comb([], '', []));
+asserteq(['b'], comb([], 'b', []));
+asserteq(['ab'], comb(['a'], 'b', []));
+asserteq(['abc'], comb(['a'], 'b', ['c']));
+asserteq(['acd', 'ace', 'bcd', 'bce'], comb(['a', 'b'], 'c', ['d', 'e']));
 
 
-assert(3, longestCommonSubsequence('abcde', 'ace'));
-assert(3, longestCommonSubsequence('abc', 'abc'));
-assert(0, longestCommonSubsequence('abc', 'def'));
+asserteq(3, longestCommonSubsequence('abcde', 'ace'));
+asserteq(3, longestCommonSubsequence('abc', 'abc'));
+asserteq(0, longestCommonSubsequence('abc', 'def'));
 
 
 // console.log(

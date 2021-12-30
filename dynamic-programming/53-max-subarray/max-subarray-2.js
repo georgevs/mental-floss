@@ -8,8 +8,8 @@ const maxSubArray = (ns) => {
   return m;
 };
 
-const assert = (e, r) => console.assert(e === r, `expected: ${e}, result: ${r}`);
+const { asserteq } = require('../../utils/asserteq');
 
-assert(6, maxSubArray([-2,1,-3,4,-1,2,1,-5,4]));
-assert(1, maxSubArray([1]));
-assert(23, maxSubArray([5,4,-1,7,8]));
+asserteq(6, maxSubArray([-2,1,-3,4,-1,2,1,-5,4]));
+asserteq(1, maxSubArray([1]));
+asserteq(23, maxSubArray([5,4,-1,7,8]));
