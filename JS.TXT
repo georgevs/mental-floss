@@ -1,0 +1,64 @@
+----------------------------------------------------------------------------------------------------
+const a = [0,1,2]
+const a = Array.of(0,1,2)
+const a = Array.from([0,1,2])
+const a = Array.from(Array(3), (x,i,a) => i)
+const a = Array(3).fill().map((x,i,a) => i)
+const a = Array.from('012', x => +x)
+
+a.every(Boolean) ? true : false
+a.some(Boolean) ? true : false
+
+const b = a.filter(Boolean)
+const b = a.map(x => x)
+const acc = a.reduce((acc,x) => acc + x, 0)
+
+console.assert(a === a.sort((lhs, rhs) => lhs - rhs))
+a.forEach((x,i,a) => console.log(x,i))
+
+console.assert(eq([1,2], [0,1,2].map(x => x ? [x] : []).flat()))
+console.assert(eq([1,2], [0,1,2].flatMap(x => x ? [x] : [])))
+console.assert(eq([1,2], [0,1,2].map(x => x ? x : undefined).filter(x => x !== undefined)))
+
+const b = a.slice()
+console.assert(b !== a.slice())
+console.assert(eq(b, a.slice()))
+
+const b = a.slice(i1,i2)    // zero based i
+const b = a.slice(-i1,-i2)  // zerp based (n - i)
+
+const d = a.splice(i,n, e1,e2,...eM)   // zero based i
+const d = a.splice(i,n, e1,e2,...eM)   // zero based (n - i)
+
+console.assert(s === s.split(d).join(d))
+
+
+----------------------------------------------------------------------------------------------------
+const eq = (x, y) => {
+  if (x === y) { return true }
+  if (x instanceof Function || y instanceof Function) { return false }
+  if (Array.isArray(x) && Array.isArray(y)) { return x.length === y.length && x.every((v, i) => eq(v, y[i])) }
+  if (Object(x) === x && Object(y) === y) { return eq(Object.entries(x).sort(compareKey), Object.entries(y).sort(compareKey)) }
+  return false;
+};
+
+const asserteq = (e, r) => console.assert(eq(e, r), `expected: ${e}, result: ${r}`);
+
+
+----------------------------------------------------------------------------------------------------
+const memoize = (m, f) => (x) => m.get(x) ?? m.set(x, f(x));
+
+const array2 = (n1, n2) => {
+  const m = Array.from(Array(n1), () => new Array(n2));
+  return { get: (x1, x2) => m[x1][x2], set: (x1, x2, y) => (m[x1][x2] = y, y) };
+};
+
+const array = (n1, n2) => {
+  const m = Array(n1 * n2);
+  return { get: (x1, x2) => m[(x1 * n2) + x2], set: (x1, x2, y) => (m[(x1 * n2) + x2] = y, y) };
+};
+
+const map = (i) => {
+  const m = new Map(i);
+  return { get: (x) => m.get(x), set: (x, y) => (m.set(x, y), y) };
+};
