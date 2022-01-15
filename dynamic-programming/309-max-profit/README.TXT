@@ -1,4 +1,5 @@
 https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/
+https://leetcode.com/explore/learn/card/dynamic-programming/632/common-patterns-in-dp-problems/4118/
 
 You are given an array prices 
 where prices[i] is the price of a given stock on the ith day.
