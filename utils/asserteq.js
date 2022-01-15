@@ -8,7 +8,7 @@ const eq = (x, y) => {
 
 const compareKey = ([lhs],[rhs]) => lhs.localeCompare(rhs);
 
-const asserteq = (e, r) => console.assert(eq(e, r), `expected: ${e}, result: ${r}`);
+const asserteq = (e, r) => console.assert(eq(e, r), 'expected:', e, 'result:', r);
 
 module.exports = { asserteq, eq };
 

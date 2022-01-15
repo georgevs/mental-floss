@@ -32,6 +32,15 @@ const d = a.splice(i,n, e1,e2,...eM)   // zero based (n - i)
 
 console.assert(s === s.split(d).join(d))
 
+----------------------------------------------------------------------------------------------------
+console.assert(3, Function.apply.bind(Math.max, null)([1,2,3]))
+console.assert(3, Function.call.bind(Math.max, null)(1,2,3))
+
+Function.call.bind(Array.prototype.map)([1,2,3], x => x + x)
+
+const ap = f => (g => (...ys) => x => g(x, ys))(Function.apply.bind(f))
+map = ap(Array.prototype.map)
+map(x => x + x)([1,2,3])
 
 ----------------------------------------------------------------------------------------------------
 const eq = (x, y) => {
@@ -62,3 +71,17 @@ const map = (i) => {
   const m = new Map(i);
   return { get: (x) => m.get(x), set: (x, y) => (m.set(x, y), y) };
 };
+
+
+----------------------------------------------------------------------------------------------------
+const subseqs = (xs) => {
+  if (xs.length === 0) { return [] }
+  if (xs.length === 1) { return [[xs[0]]] }
+  const ys = xs.slice(0, -1), x = xs[xs.length - 1];
+  const zs = subseqs(ys);
+  return [...zs, [x], ...zs.map(z => [...z, x])];
+};
+
+f {} -> {}
+f {x} -> { {x} }
+f {Y|x} -> f Y + { Z+x, Z <- {} + f Y }
