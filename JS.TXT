@@ -53,11 +53,10 @@ const eq = (x, y) => {
 
 const asserteq = (e, r) => console.assert(eq(e, r), `expected: ${e}, result: ${r}`);
 
-
 ----------------------------------------------------------------------------------------------------
 const memoize = (m, f) => (x) => m.get(x) ?? m.set(x, f(x));
 
-const array2 = (n1, n2) => {
+const array = (n1, n2) => {
   const m = Array.from(Array(n1), () => new Array(n2));
   return { get: (x1, x2) => m[x1][x2], set: (x1, x2, y) => (m[x1][x2] = y, y) };
 };
@@ -72,6 +71,7 @@ const map = (i) => {
   return { get: (x) => m.get(x), set: (x, y) => (m.set(x, y), y) };
 };
 
+const ind = (...ns) => (...xs) => xs.reduceRight(([r, b], x, i) => [r + x * b, b * ns[i]], [0, 1])[0];
 
 ----------------------------------------------------------------------------------------------------
 const subseqs = (xs) => {
@@ -85,3 +85,21 @@ const subseqs = (xs) => {
 f {} -> {}
 f {x} -> { {x} }
 f {Y|x} -> f Y + { Z+x, Z <- {} + f Y }
+
+----------------------------------------------------------------------------------------------------
+const iprofit = profit.bind(null, best.bind(null, xs), (l, s) => iprofit(l, s), xs);
+return iprofit(k - 1, 0);
+
+const n = xs.length;
+const dbest = memoize(array(n, n + 1), best.bind(null, xs));
+const dprofit = log(memoize(array(k, n), profit.bind(null, dbest, (l, s) => dprofit(l, s), xs)));
+return dprofit(k - 1, 0);
+
+const log = (f) => (...xs) => {
+  const r = f(...xs);
+  console.log(xs, '->', r);
+  return r;
+};
+
+const best = (xs, s, e) => { ... }
+const profit = (best, iter, xs, l, s) => { ...best(s,e) + iter(l,s) }

@@ -18,4 +18,4 @@ const maxProfit = (xs) => {
 const { asserteq } = require('../../utils/asserteq');
 
 asserteq(5, maxProfit([7, 1, 5, 3, 6, 4]));
-// asserteq(0, maxProfit([7, 6, 4, 3, 1]));
+asserteq(0, maxProfit([7, 6, 4, 3, 1]));
