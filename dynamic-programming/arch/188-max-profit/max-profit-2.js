@@ -40,7 +40,7 @@ const map = (k) => {
 };
 
 
-const { asserteq } = require('../../utils/asserteq');
+const { asserteq } = require('../../../utils/asserteq');
 
 asserteq(2, maxProfit(2, [2, 4, 1]));
 asserteq(7, maxProfit(2, [3, 2, 6, 5, 0, 3]));

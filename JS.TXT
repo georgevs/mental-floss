@@ -103,3 +103,12 @@ const log = (f) => (...xs) => {
 
 const best = (xs, s, e) => { ... }
 const profit = (best, iter, xs, l, s) => { ...best(s,e) + iter(l,s) }
+
+const dbest = ((m, xs) => (s, e) => {
+  let r = m[s][e];
+  if (r === undefined) {
+    m[s][e] = r = best(xs, s, e);
+    console.log(s, e, '->', r);
+  }
+  return r;
+})(Array.from(Array(n) => Array(n)), xs);
