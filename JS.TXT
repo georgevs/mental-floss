@@ -87,28 +87,23 @@ f {x} -> { {x} }
 f {Y|x} -> f Y + { Z+x, Z <- {} + f Y }
 
 ----------------------------------------------------------------------------------------------------
-const iprofit = profit.bind(null, best.bind(null, xs), (l, s) => iprofit(l, s), xs);
-return iprofit(k - 1, 0);
-
-const n = xs.length;
-const dbest = memoize(array(n, n + 1), best.bind(null, xs));
-const dprofit = log(memoize(array(k, n), profit.bind(null, dbest, (l, s) => dprofit(l, s), xs)));
-return dprofit(k - 1, 0);
-
-const log = (f) => (...xs) => {
+const logf = (f) => (...xs) => {
   const r = f(...xs);
-  console.log(xs, '->', r);
+  log(xs, '->', r);
   return r;
 };
 
-const best = (xs, s, e) => { ... }
-const profit = (best, iter, xs, l, s) => { ...best(s,e) + iter(l,s) }
+const noop = () => undefined;
+const log = noop;//console.log.bind(console);
 
-const dbest = ((m, xs) => (s, e) => {
-  let r = m[s][e];
-  if (r === undefined) {
-    m[s][e] = r = best(xs, s, e);
-    console.log(s, e, '->', r);
-  }
-  return r;
-})(Array.from(Array(n) => Array(n)), xs);
+const foo = (m, n) => {
+  log(m, n);
+
+  const iter = logf((i, j) => { ... });
+
+  // const dp = iter;
+
+  const dp = memoize(array(m, n), iter);
+  
+  return dp(n, k, 0);
+};

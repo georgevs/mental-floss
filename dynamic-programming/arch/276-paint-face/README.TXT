@@ -1,3 +1,4 @@
+https://leetcode.com/explore/learn/card/dynamic-programming/633/common-patterns-continued/4137/
 https://leetcode.com/problems/paint-fence/
 
 You are painting a fence of n posts with k different colors. 
