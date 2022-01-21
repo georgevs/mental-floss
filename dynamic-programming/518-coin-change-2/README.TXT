@@ -1,4 +1,5 @@
 https://leetcode.com/problems/coin-change-2/
+https://leetcode.com/explore/learn/card/dynamic-programming/633/common-patterns-continued/4138/
 
 You are given an integer array coins representing coins of different denominations 
 and an integer amount representing a total amount of money.

@@ -87,23 +87,45 @@ f {x} -> { {x} }
 f {Y|x} -> f Y + { Z+x, Z <- {} + f Y }
 
 ----------------------------------------------------------------------------------------------------
-const logf = (f) => (...xs) => {
+const make_logf = ({ log, ys, n = 0, d = '.' }) => (p = '') => (f) => (...xs) => {
+  if (ys) { log(d.repeat(n - 1) + p, ...ys, ':') }
+  ys = xs;
+  ++n; 
+  
   const r = f(...xs);
-  log(xs, '->', r);
+  
+  --n;
+  log(...(ys ? [d.repeat(n) + p, ...ys] : [d.repeat(n)]), '->', r);
+  ys = undefined;
+
   return r;
 };
 
 const noop = () => undefined;
 const log = noop;//console.log.bind(console);
+const logn = ({ n = 30, log }) => (...xs) => { if (n-- <= 0) { process.exit() }; log(...xs) };
+const logf = make_logf({ log });
+
 
 const foo = (m, n) => {
   log(m, n);
 
-  const iter = logf((i, j) => { ... });
+  const iter = logf('iter')((i, j) => { ... });
 
   // const dp = iter;
 
-  const dp = memoize(array(m, n), iter);
+  const dp = memoize(array((i, j) => (i * n) + j), iter);
   
   return dp(n, k, 0);
+};
+
+const memoize = (m, f) => (...xs) => m.get(xs) ?? m.set(f(...xs), xs);
+
+const map = (ind) => {
+  const m = new Map();
+  return { get: (xs) => m.get(ind(...xs)), set: (r, xs) => (m.set(ind(...xs), r), r) };
+};
+const array = (n, ind) => {
+  const m = Array(n);
+  return { get: (xs) => m.get(ind(...xs)), set: (r, xs) => (m.set(ind(...xs), r), r) };
 };
