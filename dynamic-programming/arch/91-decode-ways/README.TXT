@@ -1,4 +1,5 @@
 https://leetcode.com/problems/decode-ways/
+https://leetcode.com/explore/learn/card/dynamic-programming/633/common-patterns-continued/4139/
 
 A message containing letters from A-Z can be encoded into numbers 
 using the following mapping:
