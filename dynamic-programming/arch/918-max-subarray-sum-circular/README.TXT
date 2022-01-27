@@ -1,4 +1,5 @@
 https://leetcode.com/problems/maximum-sum-circular-subarray/
+https://leetcode.com/explore/learn/card/dynamic-programming/633/common-patterns-continued/4142/
 
 Given a circular integer array nums of length n, 
 return the maximum possible sum of a non-empty subarray of nums.

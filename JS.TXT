@@ -70,6 +70,26 @@ const array = (n, ind) => {
 const ind = (...ns) => (...xs) => xs.reduceRight(([r, b], x, i) => [r + x * b, b * ns[i]], [0, 1])[0];
 
 ----------------------------------------------------------------------------------------------------
+// longest common subsequence
+const lcs = (xs, ys) => {
+  const n = xs.length;
+  const m = ys.length;
+
+  const iter = (i, j) => {
+    if (i == n || j == m) { return 0 }
+    if (xs[i] == ys[j]) { return 1 + dp(i+1, j+1) }
+    return Math.max(dp(i, j+1), dp(i+1, j));
+  };
+
+  // const dp = iter;
+  const dp = ((rs = Array(n * m)) => (i, j) => {
+    const h = i*m + j;
+    return rs[h] ?? (rs[h] = iter(i, j));
+  })();
+
+  return dp(0, 0);
+};
+----------------------------------------------------------------------------------------------------
 const subseqs = (xs) => {
   if (xs.length === 0) { return [] }
   if (xs.length === 1) { return [[xs[0]]] }
@@ -82,26 +102,48 @@ f {} -> {}
 f {x} -> { {x} }
 f {Y|x} -> f Y + { Z+x, Z <- {} + f Y }
 
-----------------------------------------------------------------------------------------------------
-const noop = () => undefined;
-const log = console.log.bind(console);
-const logn = ({ n = 30, log }) => (...xs) => { if (n-- <= 0) { process.exit() }; log(...xs) };
-
-const make_logf = ({ log, ys, yp, n = 0, d = '.' }) => (p = '') => (f) => (...xs) => {
-  if (ys) { log(d.repeat(n - 1) + yp, ...ys, ':') }
-  ys = xs, yp = p;
-  ++n; 
-  
-  const r = f && f(...xs);
-  
-  --n;
-  log(...(ys ? [d.repeat(n) + yp, ...ys] : [d.repeat(n)]), ...(f ? ['->', r] : []));
-  ys = yp = undefined;
-
-  return r;
+....................................................................................................
+const subseqs = (xs) => {
+  if (xs.length === 0) { return [] }
+  const [x, ...ys] = xs;
+  const zs = subseqs(ys);
+  return zs.length === 0 ? [[x]] : [[x], ...zs.map(z => [x, ...z]), ...zs];
 };
 
-const logf = make_logf({ log });
+f {} -> {}
+f {x} -> {{x}}
+f {x|Y} -> f{x} + { Z + {x+Z}, Z <- f Y, Z != {} }
+
+----------------------------------------------------------------------------------------------------
+const make_logger = ({ d = '.' }) => {
+  let pxs, pp, n = 0;
+
+  const prefix = (n, p = '') => [d.repeat(n) + p].filter(Boolean);
+
+  const logger = (log) => (p, fn) => (...xs) => {
+    if (pxs) { log(...prefix(n - 1, pp), ...pxs, ':') }
+    pxs = xs, pp = p;
+    ++n; 
+    
+    const r = fn && fn(...xs);
+    
+    --n;
+    log(
+      ...(pxs ? [...prefix(n, pp), ...pxs] : [d.repeat(n)]),
+      ...(fn ? ['->', r] : [])
+    );
+    pxs = pp = undefined;
+
+    return r;
+  };
+
+  return logger;
+};
+
+const logger = make_logger({});
+const logf = logger(console.log.bind(console));
+const log = logger(console.log.bind(console))();
+const dbg = logger(console.debug.bind(console))();
 
 ....................................................................................................
 const foo = logf('foo')((m, n) => {

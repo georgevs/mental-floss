@@ -19,7 +19,7 @@ const array = (n1, n2) => {
   return { get: (i, j) => m[i * n2 + j], set: (i, j, y) => (m[i * n2 + j] = y, y) };
 };
 
-const { asserteq } = require('../../utils/asserteq');
+const { asserteq } = require('../../../utils/asserteq');
 
 asserteq(3, longestCommonSubsequence('abcde', 'ace'));
 asserteq(3, longestCommonSubsequence('abc', 'abc'));
