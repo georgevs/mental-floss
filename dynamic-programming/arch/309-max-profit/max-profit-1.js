@@ -50,10 +50,10 @@ const profit = (best, iter, xs, l, s) => {
 };
 
 
-const { asserteq } = require('../../utils/asserteq');
+const { asserteq } = require('../../../utils/asserteq');
 
 for (let i = 0; i < 10; ++i) {
   asserteq(3, maxProfit([1, 2, 3, 0, 2]));
   asserteq(0, maxProfit([1]));
-  // asserteq(515062, maxProfit(require('./test-4000.json')));
+  asserteq(515062, maxProfit(require('./test-4000.json')));
 }
