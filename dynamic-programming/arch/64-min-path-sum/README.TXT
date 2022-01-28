@@ -1,4 +1,5 @@
 https://leetcode.com/problems/minimum-path-sum/
+https://leetcode.com/explore/learn/card/dynamic-programming/634/matrix-path-based-dp/4132/
 
 Given a m x n grid filled with non-negative numbers, 
 find a path from top left to bottom right, 

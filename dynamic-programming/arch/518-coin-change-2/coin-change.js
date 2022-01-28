@@ -56,7 +56,7 @@ const map = (ind) => {
   return { get: (xs) => m.get(ind(...xs)), set: (r, xs) => (m.set(ind(...xs), r), r) };
 };
 
-const { asserteq } = require('../../utils/asserteq');
+const { asserteq } = require('../../../utils/asserteq');
 
 for (let i = 0; i < 100; ++i) {
   asserteq(4, change(5, [1, 2, 5]));
