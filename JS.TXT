@@ -156,3 +156,18 @@ const foo = logf('foo')((m, n) => {
   
   return dp(0, 0);
 });
+----------------------------------------------------------------------------------------------------
+const kadane = (fn) => (xs) => {
+  const n = xs.length;
+  let r = xs[0];
+  let c = xs[0];
+  for (let i = 1; i < n; ++i) {
+    const x = xs[i];
+    c = fn(c + x, x);
+    r = fn(r, c);
+  }
+  return r;  
+};
+
+const maxSubArray = logf('maxSubArray', kadane(Math.max));
+const minSubArray = logf('minSubArray', kadane(Math.min));
