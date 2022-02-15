@@ -29,7 +29,7 @@ const findLength = logf('findLength', (xs, ys) => {
   return r;
 });
 
-const { asserteq } = require('../../utils/asserteq');
+const { asserteq } = require('../../../utils/asserteq');
 
 asserteq(3, findLength([1, 2, 3, 2, 1], [3, 2, 1, 4, 7]));
 asserteq(5, findLength([0, 0, 0, 0, 0], [0, 0, 0, 0, 0]));
