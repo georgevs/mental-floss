@@ -35,3 +35,16 @@ check if connected:
 disjoint set functions:
 - find: finds the root node of a given node
 - union: connects two nodes by placing them in the same disjoint set, and updates the array
+
+Quick find: vertex -> root parent 
+  find: vertex parent
+  connect: new root will be assigned to ALL vertices with the old root
+
+Quick connect: vertex -> root or parent 
+  connect: new root is assigned to the joining element only
+  find: traverse all parents to find the root
+
+Quick connect rank: vertex -> root or parent;  vertex -> rank (tree height if vertex is root)
+  find: traverse all parents to find the root
+  connect: between the two vertice choose the one with longer height as new root
+           if equal in rank, chose one vertex for root, and increment the other's rank
