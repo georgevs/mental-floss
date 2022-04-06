@@ -13,6 +13,4 @@ const union = (size) => {
   return { find, connect, connected };
 };
 
-module.exports = { union };
-
-// require('./test')(module.exports);
+module.exports = union;

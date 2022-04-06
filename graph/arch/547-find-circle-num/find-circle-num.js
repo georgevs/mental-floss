@@ -5,9 +5,7 @@
 // m[i][i] == 1
 // m[i][j] == m[j][i]
 
-const { union } = require('../disjoint-sets/quick-find-union');
-// const { union } = require('../disjoint-sets/quick-connect-path-compression-union');
-// const { union } = require('../disjoint-sets/quick-connect-rank-path-compression-union');
+const union = require('../disjoint-sets/quick-find-union');
 
 const findCircleNum = (xs) => {
   const n = xs.length;
