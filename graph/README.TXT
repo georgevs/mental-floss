@@ -20,9 +20,9 @@ Terminology
 `Adjacency list` is where we have a list of sub-lists, 
   where each sub-list is the list of the immediate neighbours for the i'th node.
 
-`Adjacency matrix` ...
+`Adjacency matrix` - Boolean[n][n] { ...linked(i,j) }
 
-`linked representation` ...
+`linked representation` - Node { T val; Node[] neighbours }
 
 A `complete graph` is a graph where every vertex is connected to every other vertex.
 

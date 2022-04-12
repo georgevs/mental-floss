@@ -8,3 +8,7 @@ between nodes ai and bi in the graph.
 
 Return true if the edges of the given graph make up a valid tree, 
 and false otherwise.
+
+A graph, G, is a `tree` iff:
+- G is fully connected - there is a path between each pair of nodes.
+- G contains no cycles - there is exactly one path between each pair of nodes.
