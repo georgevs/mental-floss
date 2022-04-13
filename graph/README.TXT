@@ -1,4 +1,5 @@
 https://leetcode.com/explore/learn/card/graph/
+https://algorithms.discrete.ma.tum.de
 
 Types of graphs
 - undirected
@@ -26,6 +27,10 @@ Terminology
 
 A `complete graph` is a graph where every vertex is connected to every other vertex.
 
+`Eulerian trail` (or Eulerian path) is a trail in a finite graph 
+that visits every edge exactly once (allowing for revisiting vertices).
+`Eulerian cycle` is an Eulerian trail that starts and ends on the same vertex.
+Hierholzer proposed an efficient algorithm to find the Eulerian cycle
 
 `Disjoint set`
 - parent node: DIRECT parent of a vertex
@@ -76,6 +81,5 @@ that can be used to check for both of these conditions:
 ---
 
 In Graph theory, the `depth-first search` algorithm (abbreviated as DFS) is mainly used to:
-
-Traverse all vertices in a “graph”;
-Traverse all paths between any two vertices in a “graph”.
+- Traverse all vertices in a “graph”;
+- Traverse all paths between any two vertices in a “graph”.
