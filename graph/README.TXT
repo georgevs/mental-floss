@@ -27,10 +27,12 @@ Terminology
 
 A `complete graph` is a graph where every vertex is connected to every other vertex.
 
-`Eulerian trail` (or Eulerian path) is a trail in a finite graph 
-that visits every edge exactly once (allowing for revisiting vertices).
-`Eulerian cycle` is an Eulerian trail that starts and ends on the same vertex.
-Hierholzer proposed an efficient algorithm to find the Eulerian cycle
+`Hamiltonian path` is a path in an undirected or directed graph 
+that visits each VERTEX exactly once.
+
+`Eulerian path` is a path in a finite graph 
+that visits every EDGE exactly once (allowing for revisiting vertices).
+`Eulerian cycle` is Eulerian path ending on the starting vertex. See Hierholzer algorithm.
 
 `Disjoint set`
 - parent node: DIRECT parent of a vertex
