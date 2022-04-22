@@ -1,31 +1,26 @@
-const make_logger = ({ d = '.' }) => {
-  let pxs, pp, n = 0;
-
-  const prefix = (n, p = '') => [d.repeat(n) + p].filter(Boolean);
-
-  const logger = (log) => (p, fn) => (...xs) => {
-    if (pxs) { log(...prefix(n - 1, pp), ...pxs, ':') }
-    pxs = xs, pp = p;
-    ++n; 
-    
-    const r = fn && fn(...xs);
-    
-    --n;
-    log(
-      ...(pxs ? [...prefix(n, pp), ...pxs] : [d.repeat(n)]),
-      ...(fn ? ['->', r] : [])
-    );
-    pxs = pp = undefined;
-
-    return r;
+const logff = (log, c = '.') => {
+  let ps, pp, n = 0;
+  const logf = (p, fn) => {
+    const lfn = (...args) => {
+      if (ps) { log(c.repeat(n - 1) + pp, ...ps, ':') }
+      ps = args, pp = p;
+      ++n; const r = fn(...args); --n;
+      if (ps) { log(c.repeat(n) + p, ...args, '->', r) }
+      else { log(c.repeat(n) + '->', r) }
+      ps = pp = undefined;
+      return r;
+    };
+    return p ? lfn : noop;
   };
-
-  return logger;
+  return logf;
 };
 
-const logger = make_logger({});
-const logf = logger(console.log.bind(console));
-const log = logger(console.log.bind(console))();
-const dbg = logger(console.debug.bind(console))();
+const noop = (_, fn) => fn;
+const logf = logff(console.log.bind(console));
 
-module.exports = { logger, logf, log, dbg };
+module.exports = { logff, logf, noop };
+
+// const foo = logf('foo', (n) => goo(n - 1));
+// const goo = logf('goo', (n) => boo(n - 1));
+// const boo = logf('boo', (n) => n);
+// foo(3);
