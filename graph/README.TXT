@@ -1,6 +1,12 @@
 https://leetcode.com/explore/learn/card/graph/618/disjoint-set/3916/
 https://algorithms.discrete.ma.tum.de
 
+Minimum Spanning Tree problems - https://leetcode.com/tag/minimum-spanning-tree
+Wikipedia
+  https://en.wikipedia.org/wiki/Minimum_spanning_tree
+  https://en.wikipedia.org/wiki/Spanning_tree
+  https://en.wikipedia.org/wiki/Disjoint-set_data_structure
+
 Types of graphs
 - undirected
 - directed
@@ -37,6 +43,12 @@ that visits every EDGE exactly once (allowing for revisiting vertices).
 `Disjoint set`
 - parent node: DIRECT parent of a vertex
 - root node: node WITHOUT a parent (..or parent of itself)
+
+`Minimum Spanning Tree` is a spanning tree with least possible edge weight.
+A weighted, undirected, and connected graph can have many spanning trees but only one MST.
+  Prim algorithm (greedy)
+  Kruskal algorithm
+
 
 Given:
 - vertices: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
