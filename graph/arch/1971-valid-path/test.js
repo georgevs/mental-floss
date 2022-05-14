@@ -2,7 +2,7 @@
 seq 1 | xargs -L1 time node -e 'require("./test")(require(process.argv[1]),process.argv[2])' ./valid-path
 */
 
-const { asserteq } = require('../../utils/asserteq');
+const { asserteq } = require('../../../utils/asserteq');
 
 const test = (validPath, n) => loop(Number.parseInt(n) || 1, () => {
   asserteq(true, validPath(3, [[0, 1], [1, 2], [2, 0]], 0, 2));
