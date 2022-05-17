@@ -7,7 +7,7 @@ const graph = (vs, xs) => {
   return xs.reduce((g, [v1, v2]) => (g.get(v1).add(v2), g), g);
 };
 
-const dfsVertices = logf('dfsv', (fn) => (g) => {
+const dfsVertices = logf('', (fn) => (g) => {
   const ds = new Set([undefined]); // visited
   const visit = (v) => {
     if (!ds.has(v)) {
@@ -19,7 +19,7 @@ const dfsVertices = logf('dfsv', (fn) => (g) => {
   visit(g.keys().next().value);
 });
 
-const dfsPaths = logf('dfsp', (fn) => (g, v1, v2) => {
+const dfsPaths = logf('', (fn) => (g, v1, v2) => {
   const ds = new Set([undefined]); // visited
   const visit = (vs, v) => {
     if (!ds.has(v)) {

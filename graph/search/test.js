@@ -18,12 +18,15 @@ const xs = [
 
 const { asserteq } = require('../../utils/asserteq');
 
-const loop = (n, fn) => { for (let i = 0; i < n; ++i) fn(i) };
-const log = console.log.bind(console.log);
 const test = ({ graph, dfsVertices, dfsPaths }, n) => loop(Number.parseInt(n) || 1, () => {
   const g = graph(vs, xs);
-  dfsVertices(log)(g);
-  dfsPaths(log)(g, A, B);
+  const vertices = acc(dfsVertices);
+  const paths = acc(dfsPaths);
+  asserteq([C, D, F, E, B, A], vertices(g));
+  asserteq([[A, B], [A, C, E, B], [A, C, E, F, B], [A, D, E, B], [A, D, E, F, B]], paths(g, A, B));
 });
+
+const loop = (n, fn) => { for (let i = 0; i < n; ++i) fn(i) };
+const acc = (fn) => (...args) => { const r = []; fn(Array.prototype.push.bind(r))(...args); return r };
 
 module.exports = test;
