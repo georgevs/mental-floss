@@ -1,36 +1,29 @@
-const logff = (log) => true ? { log, logf: (p, fn) => p ? (...args) => (log(p, ...args), fn(...args)) : fn } : { log: () => void 0, logf: (_, fn) => fn };
-const { log, logf } = logff(console.log);
+const { logf } = require('./log');
 
-// adjacency list
-const graph = (vs, xs) => {
-  const g = Array.from(vs.values()).reduce((g, v) => (g.set(v, new Set()), g), new Map());
-  return xs.reduce((g, [v1, v2]) => (g.get(v1).add(v2), g), g);
-};
-
-const dfsVertices = logf('', (fn) => (g) => {
+const enumVertices = logf('', (fn) => (g) => {
   const ds = new Set([undefined]); // visited
   const visit = (v) => {
     if (!ds.has(v)) {
       ds.add(v);
-      Array.from(g.get(v).values()).forEach(visit);
+      Array.from(g.neighbors(v)).forEach(visit);
       fn(v);
     }
   };
-  visit(g.keys().next().value);
+  visit(g.first());
 });
 
-const dfsPaths = logf('', (fn) => (g, v1, v2) => {
+const enumPaths = logf('', (fn) => (g, v1, v2) => {
   const ds = new Set([undefined]); // visited
   const visit = (vs, v) => {
     if (!ds.has(v)) {
       ds.add(v);
       const p = [...vs, v];
       if (v == v2) { fn(p) }
-      else { Array.from(g.get(v).values()).forEach(v => visit(p, v)) }
+      else { Array.from(g.neighbors(v)).forEach(v => visit(p, v)) }
       ds.delete(v);
     }
   };
   visit([], v1);
 });
 
-module.exports = { graph, dfsVertices, dfsPaths };
+module.exports = { enumVertices, enumPaths };

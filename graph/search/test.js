@@ -17,16 +17,42 @@ const xs = [
 ];
 
 const { asserteq } = require('../../utils/asserteq');
+const { graph } = require('./graph');
+const { log } = require('./log');
 
-const test = ({ graph, dfsVertices, dfsPaths }, n) => loop(Number.parseInt(n) || 1, () => {
+const test = ({ enumVertices, enumPaths }, n) => loop(Number.parseInt(n) || 1, () => {
   const g = graph(vs, xs);
-  const vertices = acc(dfsVertices);
-  const paths = acc(dfsPaths);
-  asserteq([C, D, F, E, B, A], vertices(g));
-  asserteq([[A, B], [A, C, E, B], [A, C, E, F, B], [A, D, E, B], [A, D, E, F, B]], paths(g, A, B));
+  
+  if (enumVertices) {
+    const vertices = acc(enumVertices);
+    asserteq([A, B, C, D, E, F], sortVertices(vertices(g)));
+  }
+
+  if (enumPaths) {
+    const paths = acc(enumPaths);
+    log(paths(g, A, B));
+    asserteq(sortPaths([[A, B], [A, C, E, B], [A, C, E, F, B], [A, D, E, B], [A, D, E, F, B]]), sortPaths(paths(g, A, B)));
+  }
 });
 
 const loop = (n, fn) => { for (let i = 0; i < n; ++i) fn(i) };
 const acc = (fn) => (...args) => { const r = []; fn(Array.prototype.push.bind(r))(...args); return r };
+
+const sortVertices = (vs) => vs && vs.sort(compareVertices);
+const sortPaths = (ps) => ps && ps.sort(comparePaths);
+
+const compareVertices = ([l], [r]) => l.localeCompare(r);
+
+const comparePaths = (l, r) => {
+  x = l.length - r.length;
+  if (x != 0 || l.length == 0) { return x }
+  
+  const [lh, ...lt] = l;
+  const [rh, ...rt] = r;
+  x = compareVertices(lh, rh);
+  if (x != 0) { return x }
+
+  return comparePaths(lt, rt);
+};
 
 module.exports = test;
