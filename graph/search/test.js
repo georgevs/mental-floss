@@ -10,7 +10,7 @@ const vs = new Set([A, B, C, D, E, F]);
 const xs = [
   [A,B], [A,C], [A,D],
   [B,A], [B,E], [B,F],
-  [C,A], [C,E], 
+  [C,A], [C,E], // [C, D], [C, B],
   [D,A], [D,E], 
   [E,B], [E,C], [E,D], [E,F],
   [F,B], [F,E]
@@ -30,7 +30,8 @@ const test = ({ enumVertices, enumPaths }, n) => loop(Number.parseInt(n) || 1, (
 
   if (enumPaths) {
     const paths = acc(enumPaths);
-    log(paths(g, A, B));
+    log('A->B', paths(g, A, B));
+    // log('A->F', paths(g, A, F));
     asserteq(sortPaths([[A, B], [A, C, E, B], [A, C, E, F, B], [A, D, E, B], [A, D, E, F, B]]), sortPaths(paths(g, A, B)));
   }
 });

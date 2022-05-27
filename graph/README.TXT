@@ -97,3 +97,7 @@ that can be used to check for both of these conditions:
 In Graph theory, the `depth-first search` algorithm (abbreviated as DFS) is mainly used to:
 - Traverse all vertices in a “graph”;
 - Traverse all paths between any two vertices in a “graph”.
+
+
+---
+Latice graph = mesh graph = grid graph 
