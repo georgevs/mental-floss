@@ -1,6 +1,13 @@
 Subscribed - Mon 11/29/2021
 Next billing on 11/29/2022 for $159.
 
+
+https://leetcode.com/discuss/general-discussion/665604/Important-and-Useful-links-from-all-over-the-LeetCode
+https://leetcode.com/discuss/interview-question/1140451/helpful-list-of-leetcode-posts-on-system-design-at-facebook-google-amazon-uber-microsoft
+
+https://leetcode.com/discuss/study-guide/2163754/Study-Plan-75-Questions-till-Interview-Ready
+
+
 https://leetcode.com/explore/learn/card/dynamic-programming/
 
 https://leetcode.com/explore/learn/card/n-ary-tree/
