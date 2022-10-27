@@ -20,5 +20,10 @@ Constraints:
 
 ## Test
 ```
-find . -name 'test*' | xargs -L1 node
+find . -name 'test*js' | xargs -tL1 node
+```
+## Performance
+```
+seq 5 | xargs -L1 time node min-spanning-tree-kruskal 100000
+seq 5 | xargs -L1 time node min-spanning-tree-prim 100000
 ```
