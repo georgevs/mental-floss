@@ -1,20 +1,20 @@
 class UnionFind {
-  constructor(n) {
-    this.rs = Array.from(Array(n), (_, i) => i);
-    this.hs = Array(n).fill(0);
+  constructor(vertices) {
+    this.rs = new Map(vertices.map(v => [v, v]));
+    this.hs = new Map(vertices.map(v => [v, 0]));
   }
-  find(i) { 
-    let r = this.rs[i]; 
-    while (i != r) { i = r; r = this.rs[i] }
+  find(v) { 
+    let r = this.rs.get(v);
+    while (v != r) { v = r; r = this.rs.get(v) }
     return r;
   }
-  connect(i, j) { 
-    const ri = this.find(i), rj = this.find(j);
-    if (ri == rj) { return false }
-    const hi = this.hs[ri], hj = this.hs[rj];
-    if (hi < hj) { this.rs[ri] = rj }
-    else if (hj < hi) { this.rs[rj] = ri }
-    else { this.rs[ri] = rj; ++this.hs[rj] }
+  connect(v1, v2) { 
+    const r1 = this.find(v1), r2 = this.find(v2);
+    if (r1 === r2) { return false }
+    const h1 = this.hs.get(r1), h2 = this.hs.get(r2);
+    if (h1 < h2) { this.rs.set(r1, r2) }
+    else if (h2 < h1) { this.rs.set(r2, r1) }
+    else { this.rs.set(r1, r2); this.hs.set(r2, h2 + 1) }
     return true;
   }
 }

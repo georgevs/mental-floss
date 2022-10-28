@@ -1,3 +1,5 @@
+require('util').inspect.defaultOptions.depth = 10; 
+
 const eq = (x, y) => {
   if (x === y) { return true }
   if (x instanceof Function || y instanceof Function) { return false }

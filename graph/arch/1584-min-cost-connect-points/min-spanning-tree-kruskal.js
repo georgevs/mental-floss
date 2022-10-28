@@ -1,18 +1,19 @@
 
 const UnionFind = require('./union-find');
 
-const minSpanningTree = ({ vertices: { length: n }, edges }) => {
-  
-  edges.sort(([, , lw], [, , rw]) => lw - rw);
-  
-  const u = new UnionFind(n);
-  let tw = 0, tn = 0;
-  for (let k = 0; k < edges.length && tn + 1 < n; ++k) {
-    const [i, j, w] = edges[k];
-    if (u.connect(i, j)) { tw += w; ++tn }
+// (Graph g, Edge e) => g -> [e]
+const minSpanningTree = (g) => {
+  const q = Array.from(g.edges).sort(([, , lhs], [, , rhs]) => lhs - rhs);
+  const s = new UnionFind(g.vertices);
+  const rs = new Set;
+  for (const e of q) {
+    const [u, v] = e;
+    if (s.connect(u, v)) {
+      rs.add(e);
+      if (rs.size + 1 === g.vertices.length) { break }
+    }
   }
-
-  return tw;
+  return Array.from(rs.values());
 };
 
 module.exports = minSpanningTree;
