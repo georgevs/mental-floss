@@ -1,17 +1,19 @@
 const Heap = require('./heap');
 
+// (Graph g, Vertex v, Parent u, Distance d) => (g, v) -> [ { v -> d }, { v -> u } ]
 const shortestPaths = (g, u) => {
-  const ws = new Map(g.vertices.map(v => [v, v === u ? 0 : Infinity]));
-  const ps = new Map;
+  const ds = new Map(g.vertices.map(v => [v, v === u ? 0 : Infinity]));
+  const us = new Map;
   
   const q = new Heap(([,, lhs], [,, rhs]) => lhs - rhs);
 
   for (; ;) {
     for (const e of g.neighbors.get(u)) {
       const [, v, w] = e;
-      if (ws.get(u) + w < ws.get(v)) {
-        ws.set(v, ws.get(u) + w);
-        ps.set(v, u);
+      const d = ds.get(u) + w;
+      if (d < ds.get(v)) {
+        ds.set(v, d);
+        us.set(v, u);
         q.enqueue(e);
       }
     }
@@ -19,7 +21,7 @@ const shortestPaths = (g, u) => {
     ([, u] = q.dequeue());
   }
 
-  return [ws, ps];
+  return [ds, us];
 };
 
 module.exports = shortestPaths;

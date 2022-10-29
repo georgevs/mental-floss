@@ -18,6 +18,7 @@ module.exports = test;
 
 if (require.main === module) {
   test(require('./network-delay-time')(require('./shortest-paths-bellman-ford')));
+  test(require('./network-delay-time')(require('./shortest-paths-bellman-ford-spfa')));
   test(require('./network-delay-time')(require('./shortest-paths-dijkstra-eager')(require('./indexed-heap'))));
   test(require('./network-delay-time')(require('./shortest-paths-dijkstra-eager')(require('./indexed-heap-oop'))));
   test(require('./network-delay-time')(require('./shortest-paths-dijkstra-lazy')));

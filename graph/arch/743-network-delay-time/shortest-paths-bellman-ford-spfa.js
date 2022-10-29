@@ -1,14 +1,15 @@
 // (Graph g, Vertex v, Parent u, Distance d) => (g, v) -> [ { v -> d }, { v -> u } ]
 const shortestPaths = (g, v0) => {
-  const q = [v0];
-  const s = new Set([v0]);
   const ds = new Map(g.vertices.map(v => [v, v === v0 ? 0 : Infinity]));
   const us = new Map;
   
+  const q = [v0];
+  const s = new Set([v0]);
+
   while (q.length > 0) {
     const u = q.shift(); s.delete(u);
-    for (const e of g.neighbors.get(u)) {
-      const [,v,w] = e, d = ds.get(u) + w;
+    for (const [, v, w] of g.neighbors.get(u)) {
+      const d = ds.get(u) + w;
       if (d < ds.get(v)) { 
         ds.set(v, d); 
         us.set(v, u);
