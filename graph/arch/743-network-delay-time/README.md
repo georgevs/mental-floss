@@ -28,6 +28,7 @@ find . -name 'test*js' | xargs -tL1 node
 ## Performance
 ```
 seq 5 | xargs -L1 time node ./shortest-paths-bellman-ford 100000
+seq 5 | xargs -L1 time node ./shortest-paths-bellman-ford-spfa 100000
 seq 5 | xargs -L1 time node ./shortest-paths-dijkstra-lazy 100000
 seq 5 | xargs -L1 time node ./shortest-paths-dijkstra-eager ./indexed-heap 100000
 seq 5 | xargs -L1 time node ./shortest-paths-dijkstra-eager ./indexed-heap-oop 100000
