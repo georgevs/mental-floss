@@ -21,3 +21,17 @@ TRUNCATE `new_schema`.`new_table`;
 
 DROP TABLE `new_schema`.`new_table`;
 ```
+
+## Transactions
+```
+START TRANSACTION;
+
+SELECT `new_schema`.`products` WHERE id = 5;
+UPDATE `new_schema`.`products` SET `price` = '500' WHERE id = 5;
+
+IF (@correct) THEN
+  COMMIT;
+ELSE
+  ROLLBACK;
+END IF;
+```
