@@ -1,0 +1,2 @@
+WITH min_ids AS (SELECT MIN(Id) FROM Person GROUP BY Email) 
+DELETE FROM Person WHERE Id NOT IN (SELECT * FROM min_ids);

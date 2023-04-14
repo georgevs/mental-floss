@@ -35,3 +35,18 @@ ELSE
   ROLLBACK;
 END IF;
 ```
+
+## Raise user exception
+```
+DELIMITER ;;
+
+CREATE PROCEDURE raise_exception(IN message_text VARCHAR(128))
+BEGIN
+  DECLARE unhandled_exception CONDITION FOR SQLSTATE VALUE '45000';
+  SIGNAL unhandled_exception SET MESSAGE_TEXT = message_text;
+END ;;
+
+DELIMITER ;
+
+CALL raise_exception('My exception message text');
+```
