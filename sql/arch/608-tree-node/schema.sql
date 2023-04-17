@@ -1,0 +1,5 @@
+DROP SCHEMA IF EXISTS leetcode;
+CREATE SCHEMA leetcode;
+USE leetcode;
+
+CREATE TABLE IF NOT EXISTS Tree (id INT, p_id INT);
