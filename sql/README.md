@@ -19,12 +19,13 @@ docker network ls | grep bridge-dev
 
 ### Run the database
 ```
+MYSQL_ROOT_PASSWORD=$(read -s -p 'Password:' MYSQL_ROOT_PASSWORD ; echo $MYSQL_ROOT_PASSWORD) \
 docker container run --rm -d \
   --name dev-mysql \
   --network bridge-dev \
   --ip 172.20.0.201 \
   --volume "$PWD/__mysql:/var/lib/mysql" \
-  --env MYSQL_ROOT_PASSWORD=LikeBeingThere \
+  --env MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD \
   mysql
 
 docker container ls --all | grep dev-mysql
