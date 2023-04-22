@@ -35,7 +35,8 @@ EOF
 
 sub main {
   my ($file_path) = @_;
-  iter_file_lines($file_path, process_data_line(emit_insert_values_sql));
+  iter_file_lines($file_path, 
+    process_data_line(emit_truncate_table_sql, emit_insert_values_sql));
 }
 
 sub iter_file_lines {
@@ -52,8 +53,8 @@ sub iter_file_lines {
 }
 
 sub process_data_line {
-  my ($emit_sql) = @_;
-  my $table_name_pattern = qr/^(\w+)=/; 
+  my ($emit_header_sql, $emit_data_sql) = @_;
+  my $table_name_pattern = qr/^(\w+)\s*=/; 
   my $column_pattern = qr/\|\s*(.*?)\s*(?=\|)/;
   my $table_name = '';
   my @columns = ();
@@ -66,9 +67,12 @@ sub process_data_line {
     }
     elsif (my @data = match_pattern($line, $column_pattern)) {
       if (!@columns) { @columns = @data }
-      elsif (!$separator) { $separator = scalar @data }
+      elsif (!$separator) { 
+        $separator = scalar @data;
+        &$emit_header_sql($table_name, \@columns);
+      }
       else {
-        &$emit_sql($table_name, \@columns, \@data);
+        &$emit_data_sql($table_name, \@columns, \@data);
       }
     }
     else {
@@ -79,11 +83,16 @@ sub process_data_line {
   }
 }
 
+sub emit_truncate_table_sql {
+  my ($table_name, $columns) = @_;
+  print "truncate table $table_name;\n";
+}
+
 sub emit_insert_values_sql {
   my ($table_name, $columns, $data) = @_;
   my $columns_list = join(',', @$columns);
   my $values_list = join(',', map { "'$_'" } @$data );
-  print "INSERT INTO $table_name($columns_list) VALUES($values_list);\n";
+  print "insert into $table_name($columns_list) values($values_list);\n";
 }
 
 sub match_pattern {
