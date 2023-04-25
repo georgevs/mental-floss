@@ -1,0 +1,12 @@
+truncate table Student;
+insert into Student(student_id,student_name,gender,dept_id) values('1','Jack','M','1');
+insert into Student(student_id,student_name,gender,dept_id) values('2','Jane','F','1');
+insert into Student(student_id,student_name,gender,dept_id) values('3','Mark','M','2');
+truncate table Department;
+insert into Department(dept_id,dept_name) values('1','Engineering');
+insert into Department(dept_id,dept_name) values('2','Science');
+insert into Department(dept_id,dept_name) values('3','Law');
+truncate table Expected;
+insert into Expected(dept_name,student_number) values('Engineering','2');
+insert into Expected(dept_name,student_number) values('Science','1');
+insert into Expected(dept_name,student_number) values('Law','0');
