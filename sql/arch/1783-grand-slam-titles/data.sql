@@ -1,0 +1,11 @@
+truncate table Players;
+insert into Players(player_id,player_name) values('1','Nadal');
+insert into Players(player_id,player_name) values('2','Federer');
+insert into Players(player_id,player_name) values('3','Novak');
+truncate table Championships;
+insert into Championships(year,Wimbledon,Fr_open,US_open,Au_open) values('2018','1','1','1','1');
+insert into Championships(year,Wimbledon,Fr_open,US_open,Au_open) values('2019','1','1','2','2');
+insert into Championships(year,Wimbledon,Fr_open,US_open,Au_open) values('2020','2','1','2','2');
+truncate table Expected;
+insert into Expected(player_id,player_name,grand_slams_count) values('2','Federer','5');
+insert into Expected(player_id,player_name,grand_slams_count) values('1','Nadal','7');
