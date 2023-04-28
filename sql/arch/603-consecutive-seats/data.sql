@@ -1,0 +1,10 @@
+truncate table Cinema;
+insert into Cinema(seat_id,free) values('1','1');
+insert into Cinema(seat_id,free) values('2','0');
+insert into Cinema(seat_id,free) values('3','1');
+insert into Cinema(seat_id,free) values('4','1');
+insert into Cinema(seat_id,free) values('5','1');
+truncate table Expected;
+insert into Expected(seat_id) values('3');
+insert into Expected(seat_id) values('4');
+insert into Expected(seat_id) values('5');
