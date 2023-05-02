@@ -1,0 +1,16 @@
+truncate table Schools;
+insert into Schools(school_id,capacity) values('11','151');
+insert into Schools(school_id,capacity) values('5','48');
+insert into Schools(school_id,capacity) values('9','9');
+insert into Schools(school_id,capacity) values('10','99');
+truncate table Exam;
+insert into Exam(score,student_count) values('975','10');
+insert into Exam(score,student_count) values('966','60');
+insert into Exam(score,student_count) values('844','76');
+insert into Exam(score,student_count) values('749','76');
+insert into Exam(score,student_count) values('744','100');
+truncate table Expected;
+insert into Expected(school_id,score) values('5','975');
+insert into Expected(school_id,score) values('9','-1');
+insert into Expected(school_id,score) values('10','749');
+insert into Expected(school_id,score) values('11','744');
