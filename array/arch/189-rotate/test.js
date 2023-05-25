@@ -32,4 +32,6 @@ module.exports = test;
 
 if (require.main === module) {
   test(require('./rotate-1'));
+  test(require('./rotate-1a'));
+  test(require('./rotate-2'));
 }
