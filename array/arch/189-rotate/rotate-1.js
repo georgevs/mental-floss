@@ -1,15 +1,14 @@
-const rotate = (xs, k) => {
-  const n = xs.length, ys = Array(n);
-  for (let i = 0; i < n; ++i) {
-    ys[(i + k) % n] = xs[i];
-  }
-  for (let i = 0; i < n; ++i) {
-    xs[i] = ys[i];
-  }
-  return ys;
-};
+const rotl = (xs, l) => { const n = xs.length; return rot(xs, l % n) };
+const rotr = (xs, r) => { const n = xs.length; return rot(xs, n - r % n) };
 
-module.exports = rotate;
+const rot = (xs, k) => {
+  const n = xs.length;
+  xs.map((_, i) => xs[(i + k) % n])
+    .forEach((y, i) => { xs[i] = y });
+  return xs;
+}
+
+module.exports = { rotl, rotr };
 
 if (require.main === module) {
   require('./test')(module.exports, Number.parseInt(process.argv[2]));

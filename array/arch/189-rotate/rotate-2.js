@@ -1,17 +1,19 @@
-const rotate = (xs, k0) => {
-  // console.log('r:', xs.join(''), k0);
-  const n = xs.length, k = k0 % n;
-  if (n > 1 && k !== 0) {
-    for (let l = 0, c = n - 1; l < c; ++l) {
-      const i = (l + k) % n, j = l % k, t = xs[i];
-      xs[i] = xs[j]; xs[j] = t;
-      // console.log('i:', l, j, i, xs.join(''));
+const rotl = (xs, l) => { const n = xs.length; return rot(xs, l % n) };
+const rotr = (xs, r) => { const n = xs.length; return rot(xs, n - r % n) };
+
+const rot = (xs, k) => {
+  const n = xs.length;
+  if (n > 1 && k > 0 && k < n) {
+    for (let s = 0, c = 0; c < n; ++s, ++c) {
+      for (let i = s, j = s + k; j != s; ++c, i = j, j = (j + k) % n) {
+        const t = xs[i]; xs[i] = xs[j]; xs[j] = t;
+      }
     }
   }
   return xs;
-};
+}
 
-module.exports = rotate;
+module.exports = { rotl, rotr };
 
 if (require.main === module) {
   require('./test')(module.exports, Number.parseInt(process.argv[2]));

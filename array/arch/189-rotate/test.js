@@ -1,37 +1,50 @@
 const { asserteq } = require('../../../utils/asserteq');
 
 const loop = (n, fn) => { for (let i = 0; i < n; ++i) fn(i) };
-const test = (rotate, n) => loop(n || 1, () => {
-  asserteq([1], rotate([1], 0));
-  asserteq([1], rotate([1], 1));
-  asserteq([1], rotate([1], 2));
-  asserteq([1], rotate([1], 3));
+const test = ({ rotl, rotr }, n) => loop(n || 1, () => {
+  asserteq('abcdef', rotr(Array.from('abcdef'), 0).join(''));
+  asserteq('fabcde', rotr(Array.from('abcdef'), 1).join(''));
+  asserteq('efabcd', rotr(Array.from('abcdef'), 2).join(''));
+  asserteq('defabc', rotr(Array.from('abcdef'), 3).join(''));
+  asserteq('cdefab', rotr(Array.from('abcdef'), 4).join(''));
+  asserteq('bcdefa', rotr(Array.from('abcdef'), 5).join(''));
+  asserteq('abcdef', rotr(Array.from('abcdef'), 6).join(''));
+  asserteq('fabcde', rotr(Array.from('abcdef'), 7).join(''));
 
-  asserteq([1, 2], rotate([1, 2], 0));
-  asserteq([1, 2], rotate([2, 1], 1));
-  asserteq([1, 2], rotate([1, 2], 2));
-  asserteq([1, 2], rotate([2, 1], 3));
+  asserteq('abcdefg', rotr(Array.from('abcdefg'), 0).join(''));
+  asserteq('gabcdef', rotr(Array.from('abcdefg'), 1).join(''));
+  asserteq('fgabcde', rotr(Array.from('abcdefg'), 2).join(''));
+  asserteq('efgabcd', rotr(Array.from('abcdefg'), 3).join(''));
+  asserteq('defgabc', rotr(Array.from('abcdefg'), 4).join(''));
+  asserteq('cdefgab', rotr(Array.from('abcdefg'), 5).join(''));
+  asserteq('bcdefga', rotr(Array.from('abcdefg'), 6).join(''));
+  asserteq('abcdefg', rotr(Array.from('abcdefg'), 7).join(''));
+  asserteq('gabcdef', rotr(Array.from('abcdefg'), 8).join(''));
 
-  asserteq(Array.from('abcd'), rotate(Array.from('abcd'), 0));
-  asserteq(Array.from('dabc'), rotate(Array.from('abcd'), 1));
-  asserteq(Array.from('cdab'), rotate(Array.from('abcd'), 2));
-  asserteq(Array.from('bcda'), rotate(Array.from('abcd'), 3));
-  asserteq(Array.from('abcd'), rotate(Array.from('abcd'), 4));
-  asserteq(Array.from('dabc'), rotate(Array.from('abcd'), 5));
+  asserteq('abcdef', rotl(Array.from('abcdef'), 0).join(''));
+  asserteq('bcdefa', rotl(Array.from('abcdef'), 1).join(''));
+  asserteq('cdefab', rotl(Array.from('abcdef'), 2).join(''));
+  asserteq('defabc', rotl(Array.from('abcdef'), 3).join(''));
+  asserteq('efabcd', rotl(Array.from('abcdef'), 4).join(''));
+  asserteq('fabcde', rotl(Array.from('abcdef'), 5).join(''));
+  asserteq('abcdef', rotl(Array.from('abcdef'), 6).join(''));
+  asserteq('bcdefa', rotl(Array.from('abcdef'), 7).join(''));
 
-  asserteq(Array.from('efgabcd'), rotate(Array.from('abcdefg'), 3));
-
-  asserteq([5, 6, 7, 1, 2, 3, 4], rotate([1, 2, 3, 4, 5, 6, 7], 3))
-
-  asserteq([1, 2, 3, 4, 5, 6, 7], rotate([1, 2, 3, 4, 5, 6, 7], 0));
-  asserteq([5, 6, 7, 1, 2, 3, 4], rotate([1, 2, 3, 4, 5, 6, 7], 3));
-  asserteq([3, 99, -1, -100], rotate([-1, -100, 3, 99], 2));
+  asserteq('abcdefg', rotl(Array.from('abcdefg'), 0).join(''));
+  asserteq('bcdefga', rotl(Array.from('abcdefg'), 1).join(''));
+  asserteq('cdefgab', rotl(Array.from('abcdefg'), 2).join(''));
+  asserteq('defgabc', rotl(Array.from('abcdefg'), 3).join(''));
+  asserteq('efgabcd', rotl(Array.from('abcdefg'), 4).join(''));
+  asserteq('fgabcde', rotl(Array.from('abcdefg'), 5).join(''));
+  asserteq('gabcdef', rotl(Array.from('abcdefg'), 6).join(''));
+  asserteq('abcdefg', rotl(Array.from('abcdefg'), 7).join(''));
+  asserteq('bcdefga', rotl(Array.from('abcdefg'), 8).join(''));
 });
 
 module.exports = test;
 
 if (require.main === module) {
   test(require('./rotate-1'));
-  test(require('./rotate-1a'));
   test(require('./rotate-2'));
+  test(require('./rotate-3'));
 }
