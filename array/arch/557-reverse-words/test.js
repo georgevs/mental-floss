@@ -6,6 +6,7 @@ const test = (reverseWords, n) => loop(n || 1, () => {
   asserteq('a',reverseWords('a'));
   asserteq(' a b ',reverseWords(' a b '));
   asserteq(' cba fed ',reverseWords(' abc def '));
+  asserteq(' cba   fed ',reverseWords(' abc   def '));
   asserteq("s'teL ekat edoCteeL tsetnoc", reverseWords("Let's take LeetCode contest"));
   asserteq("doG gniD", reverseWords("God Ding"));
 });
