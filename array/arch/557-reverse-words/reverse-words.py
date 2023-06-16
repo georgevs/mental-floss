@@ -1,3 +1,5 @@
+# TODO: reverse str -> str = str[::-1]
+
 class Solution:
   def reverseWords(self, s: str) -> str:
     xs = list(s)  # preserve variable length codepoint
