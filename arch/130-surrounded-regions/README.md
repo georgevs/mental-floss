@@ -13,3 +13,7 @@ Constraints:
 - n == board[i].length
 - 1 <= m, n <= 200
 - board[i][j] is 'X' or 'O'.
+
+## Solution
+![lc130.png](./lc130.png)
+![lc130-dfs-2.png](./lc130-dfs-2.png)
