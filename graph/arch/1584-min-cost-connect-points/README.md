@@ -1,5 +1,8 @@
 # 1584. Min Cost to Connect All Points
 
+AR: 64.1%  
+KEYS: array, union find, graph, minimum spanning tree  
+
 ## References
 - https://leetcode.com/problems/min-cost-to-connect-all-points/
 - https://leetcode.com/explore/learn/card/graph/621/algorithms-to-construct-minimum-spanning-tree/3860/
