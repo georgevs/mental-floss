@@ -1,47 +1,48 @@
 package main
 
-import "container/heap"
-
-type EdgeHeap []Edge
-
-func (h EdgeHeap) Len() int           { return len(h) }
-func (h EdgeHeap) Less(i, j int) bool { return h[i].w < h[j].w }
-func (h EdgeHeap) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
-
-func (h *EdgeHeap) Push(x any) {
-	*h = append(*h, x.(Edge))
-}
-
-func (h *EdgeHeap) Pop() any {
-	old := *h
-	n := len(old)
-	x := old[n-1]
-	*h = old[0 : n-1]
-	return x
-}
+import (
+	"container/heap"
+)
 
 func prim(g Graph) (t []Edge) {
-	var h EdgeHeap
-	heap.Init(&h)
+	// fmt.Println(g) // DBG
 	n := len(g)
-	u := 0
 	bs := NewBitSet(n)
-	bs.Add(u)
-	for len(t) < n-1 {
-		for _, e := range g[u] {
-			h.Push(e)
-		}
-		for {
-			e := h.Pop().(Edge)
-			v := e.Other(u)
-			if !bs.Has(v) {
-				u = v
-				t = append(t, e)
-				bs.Add(u)
-				break
+	h := EdgeHeap{}
+	heap.Init(&h)
+
+	prims := func(s int) {
+		for bs.Add(s); len(t) < n-1; bs.Add(s) {
+			for _, e := range g[s] {
+				heap.Push(&h, e)
+			}
+			// fmt.Println("->", s, h) // DBG
+			for {
+				e := heap.Pop(&h).(Edge)
+				// fmt.Println("<-", e, []bool{bs.Has(e.u), bs.Has(e.v)}, h) // DBG
+				if !bs.Has(e.u) {
+					s = e.u
+					t = append(t, e)
+					break
+				}
+				if !bs.Has(e.v) {
+					s = e.v
+					t = append(t, e)
+					break
+				}
+				if h.Len() == 0 {
+					return
+				}
 			}
 		}
 	}
+
+	for s := 0; s < n && len(t) < n-1; s++ {
+		if !bs.Has(s) {
+			prims(s)
+		}
+	}
+
 	return
 }
 

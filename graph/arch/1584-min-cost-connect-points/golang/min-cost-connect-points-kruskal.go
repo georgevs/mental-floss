@@ -5,7 +5,7 @@ import "sort"
 func kruskal(n int, xs []Edge) (t []Edge) {
 	sort.Slice(xs, func(i, j int) bool { return xs[i].w < xs[j].w })
 	u := NewUnionFind(n)
-	for i := 0; len(t) < n-1; i++ {
+	for i := 0; i < len(xs) && len(t) < n-1; i++ {
 		if u.Connect(xs[i].u, xs[i].v) {
 			t = append(t, xs[i])
 		}

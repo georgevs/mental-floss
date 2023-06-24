@@ -1,6 +1,8 @@
 package main
 
 import (
+	"container/heap"
+	"sort"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -14,14 +16,45 @@ func TestPoint(t *testing.T) {
 	assert.Equal(t, 11, makePoint(10, 1).distance(makePoint(20, 2)))
 }
 
-func TestKruskal(t *testing.T) {
-	assert.Equal(t, []Edge{{0, 1, 10}}, kruskal(2, []Edge{{0, 1, 10}}))
-	assert.Equal(t, []Edge{{0, 1, 1}, {0, 2, 2}, {1, 3, 10}}, kruskal(4, []Edge{{0, 1, 1}, {0, 2, 2}, {1, 3, 10}, {2, 3, 20}}))
+func TestMinSpanningTreeKruskal(t *testing.T) {
+	testMinSpanningTree(t, kruskal)
 }
 
-func TestPrim(t *testing.T) {
-	assert.Equal(t, []Edge{{0, 1, 10}}, prim(NewGraph(2, []Edge{{0, 1, 10}})))
-	// assert.Equal(t, []Edge{{0, 1, 1}, {0, 2, 2}, {1, 3, 10}}, prim(NewGraph(4, []Edge{{0, 1, 1}, {0, 2, 2}, {1, 3, 10}, {2, 3, 20}})))
+func TestMinSpanningTreePrim(t *testing.T) {
+	testMinSpanningTree(t, func(n int, xs []Edge) []Edge { return prim(NewGraph(n, xs)) })
+}
+
+func testMinSpanningTree(t *testing.T, mst func(int, []Edge) []Edge) {
+	sorted := func(xs []Edge) []Edge {
+		sort.Slice(xs, func(i, j int) bool {
+			if xs[i].u < xs[j].u {
+				return true
+			}
+			if xs[i].u > xs[j].u {
+				return false
+			}
+			if xs[i].v < xs[j].v {
+				return true
+			}
+			if xs[i].v > xs[j].v {
+				return false
+			}
+			return xs[i].w < xs[j].w
+		})
+		return xs
+	}
+
+	assert.Equal(t,
+		[]Edge{{0, 1, 10}},
+		sorted(mst(2, []Edge{{0, 1, 10}})))
+
+	assert.Equal(t,
+		[]Edge{{0, 1, 1}, {0, 2, 2}, {1, 3, 10}},
+		sorted(mst(4, []Edge{{0, 1, 1}, {0, 2, 2}, {1, 3, 10}, {2, 3, 20}})))
+
+	assert.Equal(t,
+		[]Edge{{0, 1, 1}, {0, 2, 2}, {1, 3, 10}, {4, 5, 1}},
+		sorted(mst(6, []Edge{{0, 1, 1}, {0, 2, 2}, {1, 3, 10}, {2, 3, 20}, {4, 5, 1}})))
 }
 
 func TestMinCostConenctPointsKruskal(t *testing.T) {
@@ -29,7 +62,7 @@ func TestMinCostConenctPointsKruskal(t *testing.T) {
 }
 
 func TestMinCostConenctPointsPrim(t *testing.T) {
-	// testMinCostConnectPoints(t, minCostConnectPointsPrim)
+	testMinCostConnectPoints(t, minCostConnectPointsPrim)
 }
 
 func testMinCostConnectPoints(t *testing.T, minCostConnectPoints func([][]int) int) {
@@ -75,4 +108,16 @@ func TestGraph(t *testing.T) {
 	assert.Equal(t, 2, len(g[1]))
 	assert.Equal(t, 2, len(g[2]))
 	assert.Equal(t, 2, len(g[3]))
+}
+
+func TestHeap(t *testing.T) {
+	h := EdgeHeap{{0, 1, 1}, {1, 3, 10}, {0, 2, 2}, {2, 3, 20}}
+	heap.Init(&h)
+	assert.Equal(t, 4, h.Len())
+
+	xs := make([]Edge, 0, h.Len())
+	for h.Len() > 0 {
+		xs = append(xs, heap.Pop(&h).(Edge))
+	}
+	assert.Equal(t, []Edge{{0, 1, 1}, {0, 2, 2}, {1, 3, 10}, {2, 3, 20}}, xs)
 }
