@@ -65,6 +65,10 @@ func TestMinCostConenctPointsPrim(t *testing.T) {
 	testMinCostConnectPoints(t, minCostConnectPointsPrim)
 }
 
+func TestMinCostConenctPointsDijkstra(t *testing.T) {
+	testMinCostConnectPoints(t, minCostConnectPointsDijkstra)
+}
+
 func testMinCostConnectPoints(t *testing.T, minCostConnectPoints func([][]int) int) {
 	assert.Equal(t, 20, minCostConnectPoints([][]int{{0, 0}, {2, 2}, {3, 10}, {5, 2}, {7, 0}}))
 	assert.Equal(t, 18, minCostConnectPoints([][]int{{3, 12}, {-2, 5}, {-4, 1}}))
@@ -120,4 +124,26 @@ func TestHeap(t *testing.T) {
 		xs = append(xs, heap.Pop(&h).(Edge))
 	}
 	assert.Equal(t, []Edge{{0, 1, 1}, {0, 2, 2}, {1, 3, 10}, {2, 3, 20}}, xs)
+}
+
+func TestPriorityQueue(t *testing.T) {
+	pipe := func(xs []VertexDistance) (ys []VertexDistance) {
+		pq := NewPriorityQueue()
+		for i := 0; i < len(xs); i++ {
+			pq.Put(xs[i].v, xs[i].d)
+		}
+		ys = make([]VertexDistance, pq.Len())
+		for i := 0; i < len(ys); i++ {
+			ys[i] = heap.Pop(pq).(VertexDistance)
+		}
+		return
+	}
+
+	assert.Equal(t,
+		[]VertexDistance{{0, 0}, {1, 10}, {2, 20}},
+		pipe([]VertexDistance{{0, 0}, {1, 10}, {2, 20}}))
+
+	assert.Equal(t,
+		[]VertexDistance{{0, 0}, {2, 20}, {1, 100}},
+		pipe([]VertexDistance{{0, 0}, {1, 10}, {2, 20}, {1, 100}}))
 }
