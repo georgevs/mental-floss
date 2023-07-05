@@ -1,6 +1,12 @@
 /*
   Build and run:
-  g++ -std=c++20 -o ./bin/test test.cc -lgtest && ./bin/test
+    g++ -std=c++20 -o ./bin/test test.cc -lgtest && ./bin/test
+
+  Check lib symbols:
+    nm --demangle  /usr/lib/x86_64-linux-gnu/libgtest.a | grep 'testing::InitGoogleTest'
+
+  Install gtest:
+    sudo apt install libgtest-dev  
 */
 
 #include <gtest/gtest.h>
