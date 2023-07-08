@@ -5,13 +5,42 @@ AR: M60%
 """
 
 
-class Solution:
+class Solution1:
   def twoSum(self, xs: list[int], k: int) -> list[int]:
     n = len(xs)
     for i in range(0, n-1):
       for j in range(i+1, n):
         if k == xs[i]+xs[j]:
           return [i+1, j+1]
+
+    return []
+
+
+class Solution2:
+  def twoSum(self, xs: list[int], k: int) -> list[int]:
+    n = len(xs)
+    t = None
+    for i in range(0, n-1):
+      if t != k-xs[i]:
+        t = k-xs[i]
+        for j in range(i+1, n):
+          if t < xs[j]:
+            break
+          elif t == xs[j]:
+            return [i+1, j+1]
+
+    return []
+
+
+class Solution:
+  def twoSum(self, xs: list[int], k: int) -> list[int]:
+    n = len(xs)
+    i, j = 0, n-1
+    while i < j:
+      r = xs[i]+xs[j]
+      if r<k: i+=1
+      elif r>k: j-=1
+      else: return [i+1,j+1]
 
     return []
 
