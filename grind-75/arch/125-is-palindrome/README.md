@@ -1,0 +1,23 @@
+# 125. Valid Palindrome
+
+https://leetcode.com/problems/valid-palindrome/description/  
+AR: E45
+KEY: two pointers, string
+
+A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers.
+
+Given a string s, return true if it is a palindrome, or false otherwise.
+
+Constraints:
+- 1 <= s.length <= 2 * 105
+- s consists only of printable ASCII characters.
+
+
+Approach 1: Compare with Reverse
+
+Approach 2: Two Pointers (Intuition)
+```
+is-palindrome: X -> t =
+  for i=0, j=n-1, i<j    
+    if !alnum xi ++i ; if !alnum xj --j ; if xi!=xj ret f ; ++i --j
+```
