@@ -2,51 +2,105 @@
 
 ## Schema
 ```
-CREATE SCHEMA `new_schema` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
-SHOW DATABASES;
+drop schema if exists DATABASE;
+create schema DATABASE;
+use DATABASE;
 ```
 
 ## Table
 ```
-CREATE TABLE `new_schema`.`new_table` (
-  `id` INT NOT NULL COMMENT 'This is a primary index',
-  PRIMARY KEY (`id`)
+drop table if exists TABLE;
+
+create table TABLE (
+  FIELD int [not null] [auto_increment | default = EXPR],,,
+  FIELD int generated always as (EXPR),
+  constraint CONSTRAINT primary key (FIELD,,,),
+  constraint CONSTRAINT foreign key (FIELD,,,) references TABLE (FIELD,,,)
 );
 
-SHOW TABLES FROM `new_schema`;
-SHOW FULL COLUMNS FROM `new_schema`.`new_table`;
+create [unique] index INDEX on TABLE (FIELD,,,);
+```
 
-TRUNCATE `new_schema`.`new_table`;
+## CRUD
+```
+select [distinct] FIELD,,, from TABLE
+  [where EXPR] 
+  [group by FIELD,,,] 
+  [having EXPR]
+  [order by FIELD [desc],,,]
+  [limit N] [offset K];
 
-DROP TABLE `new_schema`.`new_table`;
+with A as (select ...) select ...;
+create [or replace] view VIEW as select ...;
+
+select EXPR into @VARIABLE ...;
+
+insert into TABLE (FIELD,,,) values (VALUE,,,),,,;
+insert into TABLE (FIELD,,,) select FIELD,,, ...;
+
+update TABLE set FIELD=VALUE,,, [where EXPR];
+
+delete from TABLE where EXPR;
+
+select ... union [all] select ...;
+```
+
+## Expression
+```
+select ...
+  where FIELD op VALUE
+        FIELD between VALUE and VALUE
+        FIELD is [not] null
+        FIELD like PATTERN        -- "abc%", "abc_", "[abc]", "[!abc]" 
+        FIELD regexp REGEXP 
+        FIELD [not] in (VALUE,,,)
+        FIELD [not] in (select ...)
+        FIELD OP [any | all] (select ...)
+```
+
+## Join
+```
+select ...
+  from (A [left | inner | right | outer] join B on A.FIELD=B.FIELD) as C
+  from (A [left | inner | right | outer] join (select ...) as B on A.FIELD=B.FIELD) as C
 ```
 
 ## Transactions
 ```
-START TRANSACTION;
+start transaction;
 
-SELECT `new_schema`.`products` WHERE id = 5;
-UPDATE `new_schema`.`products` SET `price` = '500' WHERE id = 5;
+select ...;
+insert ...;
+update ...;
+delete ...;
 
-IF (@correct) THEN
-  COMMIT;
-ELSE
-  ROLLBACK;
-END IF;
+if (@correct) then
+  commit;
+else
+  rollback;
+end if;
 ```
 
-## Raise user exception
+## Functions
 ```
-DELIMITER ;;
+create function FUNCTION(VARIABLE varchar(40))
+  returns varchar(40) deterministic
+  return concat(upper(substr(VARIABLE, 1, 1)), lower(substr(VARIABLE, 2)));
 
-CREATE PROCEDURE raise_exception(IN message_text VARCHAR(128))
-BEGIN
-  DECLARE unhandled_exception CONDITION FOR SQLSTATE VALUE '45000';
-  SIGNAL unhandled_exception SET MESSAGE_TEXT = message_text;
-END ;;
+select FUNCTION(FIELD) as FIELD,,, ...;
+```
 
-DELIMITER ;
+## Procedures
+```
+delimiter ;;
 
-CALL raise_exception('My exception message text');
+create procedure PROCEDURE(in VARIABLE varchar(128))
+begin
+  declare EXCEPTION condition for sqlstate value '45000';
+  signal EXCEPTION set message_text = VARIABLE;
+end ;;
+
+delimiter ;
+
+call PROCEDURE('My exception message text');
 ```
