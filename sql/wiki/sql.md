@@ -1,5 +1,12 @@
 # SQL Language
 
+## VScode SQLTools formatter settings
+```
+"sqltools.format": {
+  "linesBetweenQueries": "preserve"
+}
+```
+
 ## Schema
 ```
 drop schema if exists DATABASE;
@@ -24,6 +31,7 @@ create [unique] index INDEX on TABLE (FIELD,,,);
 ## CRUD
 ```
 select [distinct] FIELD,,, from TABLE
+  [window WINDOW as (WINDOW_SPEC),,,]
   [where EXPR] 
   [group by FIELD,,,] 
   [having EXPR]
@@ -64,6 +72,91 @@ select ...
   from (A [left | inner | right | outer] join B on A.FIELD=B.FIELD) as C
   from (A [left | inner | right | outer] join (select ...) as B on A.FIELD=B.FIELD) as C
 ```
+
+## Grouping and aggregate functions
+Goal: group and aggregate data to create summary rows.
+
+### Example
+```
+select office_id, avg(salary) as avg_salary from employees group by office_id;
+```
+
+## Partition and window functions
+https://www.mysqltutorial.org/mysql-window-functions/  
+
+Goal: calculate aggregates while keeping individual rows.  
+Same result can sometimes be emulated by `inner join` with a `group by` subquery. However, `over` is often more efficient and concise.  
+Window functions are performed AFTER `join`, `where`, `group by`, `having` clauses, and BEFORE `order by`, `limit`, `select distinct`
+```
+window_function_name(EXPR) <over_clause>
+
+over_clause ::= over (<window_spec>) | over <window_name>
+window_spec ::= <window_name> <partition_defintion> <order_definition> <frame_definition>
+partition_defintion ::= partition by EXPR,,,
+order_definition    ::= order by EXPR [asc|desc],,,
+```
+A frame is a subset of the current partition. A frame is defined with respect to the current row.
+```
+frame_clause   ::= <frame_units> <frame_extent>
+frame_units    ::= rows | range
+frame_extent   ::= {<frame_start> | <frame_between>}
+frame_between  ::= between <frame_start> and <frame_end>
+frame_start,frame_end ::= 
+  | current row
+  | unbounded prceding
+  | EXPR prceding
+  | unbounded following
+  | EXPR following
+```
+Default frame WITH `order by` present:
+```
+range between unbounded preceding and current row
+```
+Default frame WITHOUT `order by` present:
+```
+range between unbounded preceding and unbounded following
+```
+
+### Window functions
+```
+row_number()
+
+rank()
+dense_rank()
+percent_rank()
+
+first_value(FIELD)
+nth_value(FIELD, N) from first over (...)
+last_value(FIELD)
+
+lag(FIELD, OFFSET=1, DEFAULT=NULL)
+lead(FIELD, OFFSET=1, DEFAULT=NULL)
+
+ntile(N)     -- split result set in N buckets 1..N 
+cume_dist()  -- row_number()/total_rows
+```
+### Example
+```
+select first_name, salary, office_id,
+  avg(salary) over (partition by office_id) as avg_salary
+from employees;
+
+select first_name, salary, office_id,
+  avg(salary) over w as avg_salary
+from employees
+window w as (partition by office_id);
+
+select e.first_name, e.salary, e.office_id, s.avg_salary 
+from employees e
+inner join (
+    select office_id, avg(salary) as avg_salary 
+    from employees
+    group by office_id) s 
+  on e.office_id = s.office_id;
+```
+### Partition frame
+A frame is a subset of the current partition.
+![partition-frame.png](./partition-frame.png)
 
 ## Transactions
 ```
