@@ -27,6 +27,7 @@ Constraints:
 search X x -> k =
   l,r=0,n
   for l<r,i=(l+r)/2
+    if xi==x ret k=i
     if xl<xi   -- monotonic on the left
       if xl<=x<xi  r=i; l=i+1
     ;          -- monotonic is on the right
