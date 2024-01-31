@@ -1,11 +1,3 @@
-"""
-perm: X -> Y   X: {x}. Y: {[x]}
-  Y <- ins x0 perm X \ x0
-ins: x Y -> Y'
-  for X<-Y, i|X|  Y' <- X0,i+x+Xi,n 
-"""
-
-
 def perm(xs):
   if len(xs) == 0:
     return []
