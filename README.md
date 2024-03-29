@@ -16,6 +16,6 @@ SQL 45: https://leetcode.com/list/o2qifkts
 
 ### Push source subtree into GitHub
 ```
-git subtree split -p leetcode -b github/leetcode
+git subtree split -P leetcode -b github/leetcode
 git push git@github.com:spamfro/leetcode.git github/leetcode:main
 ```
