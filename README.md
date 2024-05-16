@@ -19,3 +19,27 @@ SQL 45: https://leetcode.com/list/o2qifkts
 git subtree split -P leetcode -b github/leetcode
 git push git@github.com:spamfro/leetcode.git github/leetcode:main
 ```
+
+## CC
+
+### Linux
+Install gtest:
+```bash
+sudo apt install libgtest-dev  
+```
+Build and run:
+```bash
+g++ -std=c++20 -lgtest test.cc && ./a.out
+```
+
+### macOS
+Install gtest:
+```bash
+brew install googletest
+```
+Build and run:
+```bash
+export CPLUS_INCLUDE_PATH=/opt/homebrew/include
+export LIBRARY_PATH=/opt/homebrew/lib
+g++ -std=c++20 -lgtest test.cc && ./a.out
+```
