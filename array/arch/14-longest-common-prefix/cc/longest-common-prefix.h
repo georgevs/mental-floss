@@ -4,6 +4,8 @@
 
 using namespace std;
 
+namespace longest_common_prefix {
+
 class Solution {
 public:
   string longestCommonPrefix(const vector<string>& strs) {
@@ -20,3 +22,5 @@ public:
     return strs[0];
   }
 };
+
+} // namespace S1
