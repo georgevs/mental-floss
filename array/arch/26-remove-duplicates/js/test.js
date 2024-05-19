@@ -1,4 +1,4 @@
-const { asserteq } = require('../../../utils/asserteq');
+const { asserteq } = require('../../../../utils/asserteq');
 
 const loop = (n, fn) => { for (let i = 0; i < n; ++i) fn(i) };
 const test = (removeDuplicates, n) => loop(n || 1, () => {
