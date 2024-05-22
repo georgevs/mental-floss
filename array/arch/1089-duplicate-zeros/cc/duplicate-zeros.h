@@ -1,11 +1,9 @@
-/*
-clang++ -std=c++20 duplicate-zeros.cc -o __a.out && ./__a.out
-*/
-
 #include <algorithm>
 #include <vector>
 
 using namespace std;
+
+namespace duplicate_zeros {
 
 class Solution {
  public:
@@ -28,8 +26,4 @@ class Solution {
   }
 };
 
-int main() {
-  vector<int> xs{1, 0, 2, 3, 0, 4, 5, 0};
-  Solution{}.duplicateZeros(xs);
-  assert(vector<int>({1, 0, 0, 2, 3, 0, 0, 4}) == xs);
-}
+} // namespace
