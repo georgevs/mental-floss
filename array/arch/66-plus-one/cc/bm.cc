@@ -1,5 +1,5 @@
 /*
-  g++ -std=c++20 -lgtest test.cc && ./a.out
+  g++ -std=c++20 bm.cc -lbenchmark && ./a.out
 */
 
 #include "plus-one-vector.h"
@@ -18,6 +18,7 @@ static void benchmark_basic(benchmark::State& state) {
     benchmark::DoNotOptimize(result);
   }
 }
+
 template<typename Solution>
 static void benchmark_carry(benchmark::State& state) {
   for (auto _ : state) {

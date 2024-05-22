@@ -23,13 +23,28 @@ git push git@github.com:spamfro/leetcode.git github/leetcode:main
 ## CC
 
 ### Linux
-Install gtest:
+Build Google test and benchmark:  
+https://github.com/google/benchmark#installation  
 ```bash
-sudo apt install libgtest-dev  
-```
-Build and run:
-```bash
-g++ -std=c++20 -lgtest test.cc && ./a.out
+sudo apt update
+sudo apt install -y cmake git build-essential
+
+sudo mkdir -p /usr/local/src/benchmark
+sudo chown $(id -un):$(id -gn) /usr/local/src/benchmark
+cd /usr/local/src
+
+git clone https://github.com/google/benchmark.git benchmark
+cd benchmark
+cmake -E make_directory "build"
+cmake -E chdir "build" cmake -DBENCHMARK_DOWNLOAD_DEPENDENCIES=on -DCMAKE_BUILD_TYPE=Release ../
+
+cmake --build "build" --config Release
+
+sudo cmake --build "build" --config Release --target install
+tar -czC build lib | sudo tar -xzvC /usr/local
+tar -czC build/third_party/googletest/src/googletest/include gtest | sudo tar -xzvC /usr/local/include
+find /usr/local/lib -type f -name libbenchmark.a -or -name libgtest.a
+find /usr/local/include -type f -name benchmark.h -or -name gtest.h
 ```
 
 ### macOS
@@ -37,11 +52,12 @@ Install Google test and benchmark:
 ```bash
 brew install googletest
 brew install google-benchmark
-```
-Build and run:
-```bash
 export CPLUS_INCLUDE_PATH=/opt/homebrew/include
 export LIBRARY_PATH=/opt/homebrew/lib
-g++ -std=c++20 -lgtest test.cc && ./a.out
-g++ -std=c++20 -lbenchmark bm.cc && ./a.out
+```
+
+### Build and run:
+```bash
+g++ -std=c++20 test.cc -lgtest && ./a.out
+g++ -std=c++20 bm.cc -lbenchmark && ./a.out
 ```

@@ -1,5 +1,5 @@
 /*
-  g++ -std=c++20 -lgtest test.cc && ./a.out
+  g++ -std=c++20 test.cc -lgtest && ./a.out
 */
 
 #include "plus-one-vector.h"
