@@ -1,4 +1,4 @@
-const { asserteq } = require('../../../utils/asserteq');
+const { asserteq } = require('../../../../utils/asserteq');
 
 const test = (plusOne, n) => loop(n || 1, () => {
   asserteq([4, 3, 2, 2], plusOne([4, 3, 2, 1]));
