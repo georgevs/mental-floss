@@ -9,5 +9,5 @@ const test = (replaceElements, n) => loop(n || 1, () => {
 module.exports = test;
 
 if (require.main === module) {
-  test(require('./replace-elements-1'));
+  test(require('./js/replace-elements-1'));
 }
